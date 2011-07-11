@@ -32,7 +32,10 @@
 
 #define LOG_QUEUED_BUFFERS 0
 
-#define kNumAQBufs 16			// Number of audio queue buffers we allocate.
+#define kNumStartsAQBufs 8      // Number of audio queue buffers we allocate to start
+#define kNumAQBufs 800          // Total number of audio queue bufferst we allocate
+
+//#define kNumAQBufs 16			// Number of audio queue buffers we allocate.
 								// Needs to be big enough to keep audio pipeline
 								// busy (non-zero number of queued buffers) but
 								// not so big that audio takes too long to begin
@@ -213,6 +216,7 @@ extern NSString * const ASUpdateMetadataNotification;
 - (BOOL)isPaused;
 - (BOOL)isWaiting;
 - (BOOL)isIdle;
+- (AudioStreamerStopReason)stopReason;
 - (void)seekToTime:(double)newSeekTime;
 - (double)calculatedBitRate;
 

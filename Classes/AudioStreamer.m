@@ -579,6 +579,18 @@ void ASReadStreamCallBack
 }
 
 //
+// stopReason
+//
+// returns stopReason as defined throughout the class (See AudioStreamerStopReason)
+//
+- (AudioStreamerStopReason)stopReason {
+    @synchronized (self)
+    {
+        return stopReason;
+    }
+}
+
+//
 // hintForFileExtension:
 //
 // Generates a first guess for the file type based on the file's extension
@@ -1724,7 +1736,7 @@ cleanup:
 			// AudioFileStream stays a small amount ahead of the AudioQueue to
 			// avoid an audio glitch playing streaming files on iPhone SDKs < 3.0
 			//
-			if (state == AS_FLUSHING_EOF || buffersUsed == kNumAQBufs - 1)
+			if (state == AS_FLUSHING_EOF || buffersUsed == kNumStartsAQBufs - 1)
 			{
 				if (self.state == AS_BUFFERING)
 				{
